@@ -8,44 +8,46 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        Deque<Integer> stack1 = new ArrayDeque<>();
-        Deque<Integer> stack2 = new ArrayDeque<>();
+        l1 = reverseList(l1);
+        l2 = reverseList(l2);
 
-        while (l1 != null) {
-            stack1.push(l1.val);
-            l1 = l1.next;
-        }
-
-        while (l2 != null) {
-            stack2.push(l2.val);
-            l2 = l2.next;
-        }
-
+        ListNode dummyHead = new ListNode(0);
+        ListNode current = dummyHead;
         int carry = 0;
-        ListNode head = null;
 
-        while (!stack1.isEmpty() || !stack2.isEmpty() || carry != 0) {
+        while (l1 != null || l2 != null || carry != 0) {
             int sum = carry;
 
-            if (!stack1.isEmpty()) {
-                sum += stack1.pop();
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
             }
-            if (!stack2.isEmpty()) {
-                sum += stack2.pop();
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
             }
 
             carry = sum / 10;
-
-            ListNode newNode = new ListNode(sum % 10);
-            newNode.next = head;
-            head = newNode;
+            current.next = new ListNode(sum % 10);
+            current = current.next;
         }
 
-        return head;
+        return reverseList(dummyHead.next);
+    }
+
+    private ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while (curr != null) {
+            ListNode nextTemp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextTemp;
+        }
+
+        return prev;
     }
 }
