@@ -1,6 +1,7 @@
 class Solution {
     public int calPoints(String[] operations) {
-        int[] stack = new int[operations.length];
+        int n = operations.length;
+        int[] stack = new int[n];
         int top = -1;
         for (String op : operations) {
             switch (op) {
