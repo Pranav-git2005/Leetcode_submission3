@@ -16,7 +16,8 @@ class Solution {
                     top--;
                     break;
                 default:
-                    stack[++top] = Integer.parseInt(op);
+                    stack[top+1] = Integer.parseInt(op);
+                    top++;
             }
         }
         int sum = 0;
