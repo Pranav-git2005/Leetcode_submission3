@@ -1,6 +1,7 @@
 class Solution {
     public int evalRPN(String[] tokens) {
-        int[] stack = new int[tokens.length];
+        int n = tokens.length;
+        int[] stack = new int[n];
         int top = -1;
         for (String token : tokens) {
             switch (token) {
